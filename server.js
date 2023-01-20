@@ -1,5 +1,5 @@
 import app from "./app.js";
-import dotenv from "dotenv";
+import fs from "fs";
 import connectDB from "./config/database.js";
 
 // Handle uncaught exceptions
@@ -11,6 +11,15 @@ process.on("uncaughtException", (err) => {
 });
 
 // Load env vars
+if (!fs.existsSync("./.env")) {
+  console.log("Creating .env file");
+  const src = "./config.txt";
+  const dest = "./.env";
+  fs.copyFileSync(src, dest);
+}
+
+import dotenv from "dotenv";
+dotenv.config();
 dotenv.config();
 const PORT = process.env.PORT || 5000;
 
