@@ -10,4 +10,8 @@ app.get("/", (req, res) => {
   });
 });
 
+// Routes import
+import userRoutes from "./routes/userRoute.js";
+app.use("/api/v1", userRoutes);
+
 export default app;
