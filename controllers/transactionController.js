@@ -36,8 +36,9 @@ export const getAllTransactions = catchAyncErrors(async (req, res) => {
 export const getSingleTransaction = catchAyncErrors(async (req, res, next) => {
   const transaction = await Transaction.findById(req.params.id);
   if (!transaction) {
-    return next(new ErrorHandler("Product not found", 404));
+    return next(new ErrorHandler("Transaction not found", 404));
   }
+
   res.status(200).json({
     success: true,
     transaction,
@@ -49,11 +50,23 @@ export const deleteSingleTransaction = catchAyncErrors(
   async (req, res, next) => {
     const transaction = await Transaction.findById(req.params.id);
     if (!transaction) {
-      return next(new ErrorHandler("Product not found", 404));
+      return next(new ErrorHandler("Transaction not found", 404));
     }
+    const user = await User.findById(req.user.id);
+    if (transaction.tranType === "Expense") {
+      user.currentBalance = user.currentBalance + Number(transaction.amount);
+      user.totalExpense = user.totalExpense - Number(transaction.amount);
+    } else {
+      user.currentBalance = user.currentBalance - Number(transaction.amount);
+      user.totalIncome = user.totalIncome - Number(transaction.amount);
+    }
+
     await transaction.remove();
     res.status(200).json({
       success: true,
+      currentBalance: user.currentBalance,
+      totalExpense: user.totalExpense,
+      totalIncome: user.totalIncome,
       message: "Transaction deleted successfully",
     });
   }

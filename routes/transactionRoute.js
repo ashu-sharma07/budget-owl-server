@@ -10,7 +10,9 @@ const router = express.Router();
 
 router.route("/transaction").get(isAuthenticatedUser, getAllTransactions);
 router.route("/transaction/new").post(isAuthenticatedUser, createTransaction);
-router.route("/transaction/:id").get(getSingleTransaction);
-router.route("/transaction/:id").get(deleteSingleTransaction);
+router
+  .route("/transaction/:id")
+  .get(isAuthenticatedUser, getSingleTransaction)
+  .delete(isAuthenticatedUser, deleteSingleTransaction);
 
 export default router;
