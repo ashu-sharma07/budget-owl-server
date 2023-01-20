@@ -137,5 +137,7 @@ export const setPref = catchAyncErrors(async (req, res, next) => {
     }
   );
   await user.save();
-  sendToken(user, 200, res);
+  res.status(200).json({
+    messege: predictedBudget.prediction,
+  });
 });
