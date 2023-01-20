@@ -35,6 +35,14 @@ const userSchema = new mongoose.Schema(
       type: Number,
       default: 0,
     },
+    totalIncome: {
+      type: Number,
+      default: 0,
+    },
+    totalExpense: {
+      type: Number,
+      default: 0,
+    },
     resetPasswordToken: String,
     resetPasswordExpire: Date,
   },
