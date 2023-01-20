@@ -9,11 +9,11 @@ export const createTransaction = catchAyncErrors(async (req, res, next) => {
   const { amount, tranType } = req.body;
   const user = await User.findById(req.user.id);
   if (tranType === "Expense") {
-    user.currentBalance = user.currentBalance - amount;
-    user.totalExpense = user.totalExpense + amount;
+    user.currentBalance = user.currentBalance - Number(amount);
+    user.totalExpense = user.totalExpense + Number(amount);
   } else {
-    user.currentBalance = user.currentBalance + amount;
-    user.totalIncome = user.totalIncome + amount;
+    user.currentBalance = user.currentBalance + Number(amount);
+    user.totalIncome = user.totalIncome + Number(amount);
   }
   await user.save();
   const transaction = await Transaction.create(req.body);
@@ -43,3 +43,18 @@ export const getSingleTransaction = catchAyncErrors(async (req, res, next) => {
     transaction,
   });
 });
+
+// Delete transaction
+export const deleteSingleTransaction = catchAyncErrors(
+  async (req, res, next) => {
+    const transaction = await Transaction.findById(req.params.id);
+    if (!transaction) {
+      return next(new ErrorHandler("Product not found", 404));
+    }
+    await transaction.remove();
+    res.status(200).json({
+      success: true,
+      message: "Transaction deleted successfully",
+    });
+  }
+);
