@@ -54,7 +54,6 @@ export const forgotPassword = catchAyncErrors(async (req, res, next) => {
   }
   // Get reset token
   const resetToken = user.getResetPasswordToken();
-  console.log(resetToken);
   await user.save({ validateBeforeSave: false });
   const message = `Your password reset OTP is :\n\n${resetToken}\n\nIf you have not requested this email, then ignore it.`;
   try {
