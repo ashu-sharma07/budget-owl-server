@@ -27,6 +27,10 @@ const userSchema = new mongoose.Schema(
       select: false,
     },
     preferences: Pref,
+    pBudget: {
+      type: Number,
+      default: 0,
+    },
     resetPasswordToken: String,
     resetPasswordExpire: Date,
   },
