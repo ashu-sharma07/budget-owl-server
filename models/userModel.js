@@ -2,7 +2,6 @@ import mongoose from "mongoose";
 import validator from "validator";
 import bcrypt from "bcryptjs";
 import jwt from "jsonwebtoken";
-// import crypto from "crypto";
 
 const userSchema = new mongoose.Schema(
   {
@@ -26,7 +25,7 @@ const userSchema = new mongoose.Schema(
       minlength: [8, "Your password must be at least 8 characters"],
       select: false,
     },
-    resetPasswordOtp: String,
+    resetPasswordToken: String,
     resetPasswordExpire: Date,
   },
   { timestamps: true }
@@ -55,21 +54,18 @@ userSchema.methods.comparePassword = async function (enteredPassword) {
 
 // // Generate password reset token
 
-// userSchema.methods.getResetPasswordToken = function () {
-//   // Generate token
-//   const resetToken = crypto.randomBytes(20).toString("hex");
+userSchema.methods.getResetPasswordToken = function () {
+  // Generate token
+  const resetToken = Math.floor(100000 + Math.random() * 900000);
 
-//   // Hash and set to resetPasswordToken
-//   this.resetPasswordToken = crypto
-//     .createHash("sha256")
-//     .update(resetToken)
-//     .digest("hex");
+  // Set to resetPasswordToken
+  this.resetPasswordToken = resetToken;
 
-//   // Set token expire time
-//   this.resetPasswordExpire = Date.now() + 10 * 60 * 1000;
+  // Set token expire time
+  this.resetPasswordExpire = Date.now() + 10 * 60 * 1000;
 
-//   return resetToken;
-// };
+  return resetToken;
+};
 
 const User = mongoose.model("User", userSchema);
 export default User;
