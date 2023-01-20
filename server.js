@@ -11,7 +11,7 @@ process.on("uncaughtException", (err) => {
 });
 
 // Load env vars
-dotenv.config({ path: "./config/config.env" });
+dotenv.config();
 const PORT = process.env.PORT || 5000;
 
 app.listen(PORT, () => {
