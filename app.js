@@ -23,7 +23,9 @@ app.get("/", (req, res) => {
 
 // Routes import
 import userRoutes from "./routes/userRoute.js";
+import transactionRoutes from "./routes/transactionRoute.js";
 app.use("/api/v1", userRoutes);
+app.use("/api/v1", transactionRoutes);
 // Middleware for error handling
 app.use(handleError);
 app.use((req, res, next) => {

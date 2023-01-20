@@ -1,8 +1,8 @@
 import express from "express";
-import {} from "../controllers/productController.js";
+import { createTransaction } from "../controllers/transactionController.js";
 import { isAuthenticatedUser } from "../middleware/auth.js";
 const router = express.Router();
 
-router
-  .route("/admin/products/new")
-  .post(isAuthenticatedUser, authorizeRoles("admin"), createProduct);
+router.route("/transaction/new").post(isAuthenticatedUser, createTransaction);
+
+export default router;

@@ -15,10 +15,6 @@ const transactionSchema = new mongoose.Schema(
       required: [true, "Please enter amount price"],
       maxLenght: [12, "Amount cannot exceed 12 figures"],
     },
-    currentBalance: {
-      type: Number,
-      default: 0,
-    },
     Date: {
       type: String,
       default: Date.now(),
