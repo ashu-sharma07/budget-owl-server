@@ -2,7 +2,6 @@ import catchAyncErrors from "../middleware/catchAyncErrors.js";
 import Transaction from "../models/transactionModel.js";
 import User from "../models/userModel.js";
 import ErrorHandler from "../utils/errorHandler.js";
-import { ApiFeatures } from "../utils/apiFeatures.js";
 
 // Create Transation
 export const createTransaction = catchAyncErrors(async (req, res, next) => {
@@ -28,14 +27,19 @@ export const createTransaction = catchAyncErrors(async (req, res, next) => {
 });
 
 // Get all transactions
-
 export const getAllTransactions = catchAyncErrors(async (req, res) => {
-  // const resPerPage = 9;
-  // const productsCount = await Product.countDocuments();
-  // const apiFeature = new ApiFeatures(Product.find(), req.query)
-  //   .search()
-  //   .filter()
-  //   .pagination(resPerPage);
-  // const products = await apiFeature.query;
-  res.status(200).json({ success: true, products, productsCount });
+  const transaction = await Transaction.find({ user: req.user.id });
+  res.status(200).json({ success: true, transaction });
+});
+
+// Get single transaction
+export const getSingleTransaction = catchAyncErrors(async (req, res, next) => {
+  const transaction = await Transaction.findById(req.params.id);
+  if (!transaction) {
+    return next(new ErrorHandler("Product not found", 404));
+  }
+  res.status(200).json({
+    success: true,
+    transaction,
+  });
 });
