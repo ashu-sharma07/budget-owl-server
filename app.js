@@ -8,7 +8,7 @@ const app = express();
 app.use(cookieParser());
 app.use(express.json());
 var corsOptions = {
-  origin: "http://localhost:3000",
+  origin: "http://localhost:3000, https://spendsavvy.cnarmy.in/",
   optionsSuccessStatus: 200, // For legacy browser support
 };
 
@@ -16,7 +16,7 @@ app.use(cors(corsOptions));
 app.get("/", (req, res) => {
   res.status(200).json({
     success: true,
-    message: "Welcome to the Spend Savvy API :)",
+    message: "Welcome to the Spend Savvy API",
   });
 });
 
