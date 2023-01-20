@@ -97,3 +97,18 @@ export const resetPassword = catchAyncErrors(async (req, res, next) => {
   await user.save();
   sendToken(user, 200, res);
 });
+
+export const setPref = catchAyncErrors(async (req, res, next) => {
+  const preferences = req.body;
+  const user = await User.findByIdAndUpdate(
+    req.user.id,
+    { preferences: preferences },
+    {
+      new: true,
+      runValidators: true,
+      useFindAndModify: false,
+    }
+  );
+  await user.save();
+  sendToken(user, 201, res);
+});

@@ -2,6 +2,7 @@ import mongoose from "mongoose";
 import validator from "validator";
 import bcrypt from "bcryptjs";
 import jwt from "jsonwebtoken";
+import Pref from "./prefModel.js";
 
 const userSchema = new mongoose.Schema(
   {
@@ -25,6 +26,7 @@ const userSchema = new mongoose.Schema(
       minlength: [8, "Your password must be at least 8 characters"],
       select: false,
     },
+    preferences: Pref,
     resetPasswordToken: String,
     resetPasswordExpire: Date,
   },
