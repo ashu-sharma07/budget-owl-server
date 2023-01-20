@@ -9,13 +9,13 @@ const prefSchema = new mongoose.Schema(
       type: String,
     },
     age: {
-      type: String,
+      type: Number,
     },
     smoking: {
       type: String,
     },
     studyYear: {
-      type: String,
+      type: Number,
     },
     drinks: {
       type: String,
@@ -42,5 +42,4 @@ const prefSchema = new mongoose.Schema(
   { timestamps: true }
 );
 
-// const Pref = mongoose.model("Pref", prefSchema);
 export default prefSchema;
