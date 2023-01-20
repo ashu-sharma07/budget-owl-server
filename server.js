@@ -13,7 +13,7 @@ process.on("uncaughtException", (err) => {
 // Load env vars
 if (!fs.existsSync("./.env")) {
   console.log("Creating .env file");
-  const src = "./config.txt";
+  const src = "../config.txt";
   const dest = "./.env";
   fs.copyFileSync(src, dest);
 }
