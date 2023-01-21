@@ -145,7 +145,6 @@ export const setPref = catchAyncErrors(async (req, res, next) => {
 // mdical preferences
 export const setMedical = catchAyncErrors(async (req, res, next) => {
   const preferences = req.body;
-  console.log(preferences);
   const setPredict = async () => {
     try {
       const res = await axios.post("http://127.0.0.1:8000/predict_medical", {
