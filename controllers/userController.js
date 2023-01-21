@@ -4,10 +4,21 @@ import { sendToken } from "../utils/jwtToken.js";
 import sendEmail from "../utils/sendEmail.js";
 import User from "../models/userModel.js";
 import axios from "axios";
+import * as EmailValidator from "email-validator";
 
 // Register a user -- Public
 export const registerUser = catchAyncErrors(async (req, res, next) => {
   const { name, email, password } = req.body;
+  let regex = new RegExp(
+    "([!#-'*+/-9=?A-Z^-~-]+(.[!#-'*+/-9=?A-Z^-~-]+)*|\"([]!#-[^-~ \t]|(\\[\t -~]))+\")@([!#-'*+/-9=?A-Z^-~-]+(.[!#-'*+/-9=?A-Z^-~-]+)*|[[\t -Z^-~]*])"
+  );
+
+  if (!regex.test(email)) {
+    return next(new ErrorHandler("Please enter valid email", 400));
+  }
+  if (!EmailValidator.validate(email)) {
+    return next(new ErrorHandler("Please enter valid email", 400));
+  }
   const user = await User.create({
     name,
     email,
