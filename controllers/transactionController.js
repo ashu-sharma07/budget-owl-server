@@ -71,3 +71,30 @@ export const deleteSingleTransaction = catchAyncErrors(
     });
   }
 );
+
+export const getGraphData = catchAyncErrors(async (req, res, next) => {
+  const cat = req.params.catname;
+  Transaction.aggregate([
+    {
+      $match: {
+        category: cat,
+      },
+    },
+    {
+      $group: {
+        _id: null,
+        totalAmount: { $sum: "$amount" },
+      },
+    },
+  ]).exec((error, result) => {
+    if (error) {
+      console.log("Error in getting graph data");
+      console.log(error);
+    } else {
+      res.status(200).json({
+        success: true,
+        result: result[0].totalAmount,
+      });
+    }
+  });
+});
