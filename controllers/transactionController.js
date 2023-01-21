@@ -91,10 +91,17 @@ export const getGraphData = catchAyncErrors(async (req, res, next) => {
       console.log("Error in getting graph data");
       console.log(error);
     } else {
-      res.status(200).json({
-        success: true,
-        result: result[0].totalAmount,
-      });
+      if (result.length === 0) {
+        return res.status(200).json({
+          success: true,
+          result: 0,
+        });
+      } else {
+        res.status(200).json({
+          success: true,
+          result: result[0].totalAmount,
+        });
+      }
     }
   });
 });
