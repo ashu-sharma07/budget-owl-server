@@ -2,6 +2,7 @@ import catchAyncErrors from "../middleware/catchAyncErrors.js";
 import Transaction from "../models/transactionModel.js";
 import User from "../models/userModel.js";
 import ErrorHandler from "../utils/errorHandler.js";
+import mongoose from "mongoose";
 
 // Create Transation
 export const createTransaction = catchAyncErrors(async (req, res, next) => {
@@ -74,10 +75,13 @@ export const deleteSingleTransaction = catchAyncErrors(
 
 export const getGraphData = catchAyncErrors(async (req, res, next) => {
   const cat = req.params.catname;
+  let uId = req.user.id;
+  uId = mongoose.Types.ObjectId(uId);
   Transaction.aggregate([
     {
       $match: {
         category: cat,
+        user: uId,
       },
     },
     {
