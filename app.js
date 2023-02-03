@@ -7,13 +7,13 @@ const app = express();
 // app.use(cors());
 app.use(cookieParser());
 app.use(express.json());
-// var corsOptions = {
-//   origin: "https://spendsavvy.cnarmy.in/",
-//   optionsSuccessStatus: 200, // For legacy browser support
-// };
+var corsOptions = {
+  origin: "https://spendsavvy.cnarmy.in/",
+  optionsSuccessStatus: 200, // For legacy browser support
+};
 
 // app.use(cors(corsOptions));
-app.use(cors());
+app.use(cors(corsOptions));
 app.get("/", (req, res) => {
   res.status(200).json({
     success: true,
