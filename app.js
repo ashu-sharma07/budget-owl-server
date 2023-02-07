@@ -17,7 +17,7 @@ app.use(cors(corsOptions));
 app.get("/", (req, res) => {
   res.status(200).json({
     success: true,
-    message: "Welcome to the Spend Savvy API",
+    message: "Welcome to the Spend Savvy API :)",
   });
 });
 
