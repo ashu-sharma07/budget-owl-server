@@ -1,2 +1,2 @@
 # spend-savvy-server
-Server Application for Budget Owl Server
+Server Application for Spend Savvy Server
